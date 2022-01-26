@@ -192,7 +192,7 @@ resource "aws_instance" "java10x_cyberg3_app_tf" {
     environment = {
       ANSIBLE_CONFIG = "${abspath(path.root)}/ansible"
     }
-    command = "ansible-playbook -i ${self.public_ip}, -u ubuntu playbook.yml"
+    command = "ansible-playbook -i ${self.public_ip}, -u ubuntu application.yml"
   }
 
   tags = {
