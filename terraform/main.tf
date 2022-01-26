@@ -83,9 +83,25 @@ module "application_module" {
 module "proxy_module" {
  source = "./modules/proxy"
  var_depends_on_application_tf = "${module.application_module.output_webserver_ids_tf}"
+ var_vpc_id_tf = "${local.vpc_id}"
+ var_subnet_proxy_id_tf = "${module.subnets_module.output_subnet_proxy_id_tf}"
+ var_route_table_id_tf = aws_route_table.java10x_cyberg3_rt_tf.id
+ var_client_ip_address_tf = "${var.var_client_ip_address_tf}"
+ var_global_key_name_tf = "${var.var_global_key_name_tf}"
+ var_ami_app_server_tf = "${var.var_ami_app_server_tf}"
+ var_private_key_loc_tf = "${var.var_private_key_loc_tf}"
+ var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
 }
 
 
 module "bastion_module" {
  source = "./modules/bastion"
+ var_depends_on_database = module.database_module.output_database_instance_tf
+ var_vpc_id_tf = "${local.vpc_id}"
+ var_subnet_bastion_id_tf = "${module.subnets_module.output_subnet_bastion_id_tf}"
+ var_route_table_id_tf = aws_route_table.java10x_cyberg3_rt_tf.id
+ var_ami_app_server_tf = "${var.var_ami_app_server_tf}"
+ var_client_ip_address_tf = "${var.var_client_ip_address_tf}"
+ var_global_key_name_tf = "${var.var_global_key_name_tf}"
+ var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
 }
