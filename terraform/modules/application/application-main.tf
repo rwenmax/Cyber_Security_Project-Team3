@@ -163,13 +163,14 @@ resource "aws_security_group" "java10x_cyberg3_sg_app_tf" {
 
 #App Instance
 resource "aws_instance" "java10x_cyberg3_app_tf" {
-  ami = "${var.var_ami_linux_server_tf}"
+  ami = "${var.var_ami_app_server_tf}"
   instance_type = "t2.micro"
   key_name = "${var.var_global_key_name_tf}"
   subnet_id = "${var.var_subnet_app_id_tf}"
   vpc_security_group_ids = [aws_security_group.java10x_cyberg3_sg_app_tf.id]
   associate_public_ip_address = true
   depends_on = [var.var_depends_on_database]
+  count = "${var.var_number_of_instances_tf}"
 #Connection type, ssh to self
     connection {
     type = "ssh"
@@ -221,8 +222,18 @@ resource "aws_instance" "java10x_cyberg3_app_tf" {
     "/home/ubuntu/app-run.sh"
     ]
   }
-#
+
   tags = {
     Name = "java10x_cyberg3_app"
   }
+}
+
+
+#Route for app
+resource "aws_route53_record" "java10x_cyberg3_r53_record_app_tf" {
+  zone_id = "${var.var_route53_zone_id_tf}"
+  name = "www"
+  type = "A"
+  ttl = "30"
+  records = aws_instance.java10x_cyberg3_app_tf.*.private_ip
 }

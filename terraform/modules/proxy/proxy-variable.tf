@@ -1,0 +1,1 @@
+variable "var_depends_on_application_tf" {}
