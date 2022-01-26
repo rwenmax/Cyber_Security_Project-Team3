@@ -1,0 +1,1 @@
+variable "var_ami_app_server_tf" {}
