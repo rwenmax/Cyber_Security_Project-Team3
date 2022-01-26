@@ -56,7 +56,7 @@ module "subnets_module" {
 
 
 module "database_module" {
-  source = "./database"
+  source = "./modules/database"
   var_vpc_id_tf = "${local.vpc_id}"
   var_subnet_database_id_tf = "${module.subnets_module.output_subnet_database_id_tf}"
   var_ami_database_server_tf = "${var.var_ami_database_server_tf}"
@@ -65,27 +65,43 @@ module "database_module" {
 }
 
 module "application_module" {
-  source = "./application"
+  source = "./modules/application"
   var_depends_on_database = module.database_module.output_database_instance_tf
   var_vpc_id_tf = "${local.vpc_id}"
-  var_subnet_app_id_tf = "${module.subnets_module.output_subnet_app_id}"
+  var_subnet_app_id_tf = "${module.subnets_module.output_subnet_app_id_tf}"
   var_route_table_id_tf = aws_route_table.java10x_cyberg3_rt_tf.id
   var_global_key_name_tf = "${var.var_global_key_name_tf}"
   var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
   var_client_ip_address_tf = "${var.var_client_ip_address_tf}"
+  var_number_of_instances_tf = "${var.var_number_of_instances_tf}"
+  var_private_key_loc_tf = "${var.var_private_key_loc_tf}"
+  var_ami_app_server_tf = "${var.var_ami_app_server_tf}"
 }
 
 
 
 module "proxy_module" {
- source = ""
+ source = "./modules/proxy"
+ var_depends_on_application_tf = "${module.application_module.output_webserver_ids_tf}"
+ var_vpc_id_tf = "${local.vpc_id}"
+ var_subnet_proxy_id_tf = "${module.subnets_module.output_subnet_proxy_id_tf}"
+ var_route_table_id_tf = aws_route_table.java10x_cyberg3_rt_tf.id
+ var_client_ip_address_tf = "${var.var_client_ip_address_tf}"
+ var_global_key_name_tf = "${var.var_global_key_name_tf}"
+ var_ami_app_server_tf = "${var.var_ami_app_server_tf}"
+ var_private_key_loc_tf = "${var.var_private_key_loc_tf}"
+ var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
 }
 
 
 module "bastion_module" {
- source = ""
+ source = "./modules/bastion"
+ var_depends_on_database = module.database_module.output_database_instance_tf
+ var_vpc_id_tf = "${local.vpc_id}"
+ var_subnet_bastion_id_tf = "${module.subnets_module.output_subnet_bastion_id_tf}"
+ var_route_table_id_tf = aws_route_table.java10x_cyberg3_rt_tf.id
+ var_ami_app_server_tf = "${var.var_ami_app_server_tf}"
+ var_client_ip_address_tf = "${var.var_client_ip_address_tf}"
+ var_global_key_name_tf = "${var.var_global_key_name_tf}"
+ var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
 }
-
-
-#App Instance/Security Group
-

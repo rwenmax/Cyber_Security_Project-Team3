@@ -30,6 +30,10 @@ variable "var_ami_app_server_tf" {
 }
 
 
+#Number of applications to be created 
+variable "var_number_of_instances_tf" {
+  default = 3
+}
 
 
 
