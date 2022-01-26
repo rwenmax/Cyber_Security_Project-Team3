@@ -17,6 +17,12 @@ locals {
 }
 
 
+####Change thissssss###########
+variable "var_ami_database_server_tf"{
+  default = "ami-08ca3fed11864d6bb"
+}
+
+
 variable "var_ami_app_server_tf" {
   default = "ami-08ca3fed11864d6bb"
 }

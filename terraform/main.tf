@@ -57,12 +57,18 @@ module "subnets_module" {
 
 module "database_module" {
   source = ""
-  
+  var_vpc_id_tf = "${local.vpc_id}"
+  var_subnet_database_id_tf = "${module.subnets_module.output_subnet_database_id_tf}"
+  var_ami_database_server_tf = "${var.var_ami_database_server_tf}"
+  var_global_key_name_tf = "${var.var_global_key_name_tf}"
+  var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
 }
 
 module "application_module" {
   source = ""
 }
+
+
 
 module "proxy_module" {
  source = ""
