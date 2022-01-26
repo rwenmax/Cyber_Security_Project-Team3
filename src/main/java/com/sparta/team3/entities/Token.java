@@ -25,12 +25,14 @@ public class Token {
     @Column(name = "ts_expiration")
     private Instant tsExpiration;
 
+    public Token(String token, UserProfile profile)
+    {
+        this.token = token;
+        this.profile = profile;
+    }
+
     public Token() {
 
-    }
-    public Token(String sToken, UserProfile userProfile) {
-        this.token = sToken;
-        this.profile = userProfile;
     }
 
     public Instant getTsExpiration() {

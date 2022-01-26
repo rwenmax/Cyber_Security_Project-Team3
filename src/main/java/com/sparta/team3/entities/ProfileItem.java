@@ -1,13 +1,14 @@
 package com.sparta.team3.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "profile_item")
 public class ProfileItem {
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "profile_id", nullable = false)
     private UserProfile profile;
@@ -15,6 +16,14 @@ public class ProfileItem {
     @ManyToOne(optional = false)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Item getItem() {
         return item;

@@ -39,4 +39,13 @@ public class UserProfile {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "id=" + id +
+                ", profileUsername='" + profileUsername + '\'' +
+                ", profilePassword='" + profilePassword + '\'' +
+                '}';
+    }
 }
