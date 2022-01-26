@@ -180,47 +180,19 @@ resource "aws_instance" "java10x_cyberg3_app_tf" {
    }
 
 
-   #Run script them/Copy them into the host machine
-   provisioner "file" {
-     source = "./modules/application/scripts/docker-install.sh"
-     destination = "/home/ubuntu/docker-install.sh"
-   }
-
-
-  provisioner "file" {
-    source = "./modules/application/scripts/app-pros.sh"
-    destination = "/home/ubuntu/app-pros.sh"
-  }
-
-
-  provisioner "file" {
-    source = "./modules/application/scripts/app-run.sh"
-    destination = "/home/ubuntu/app-run.sh"
-  }
-
-
   provisioner "remote-exec" {
     #Allow the commands to run after creating the instance
     inline = [
-    "chmod 744 /home/ubuntu/app-pros.sh",
-    "/home/ubuntu/app-pros.sh"
+      "ls"
     ]
   }
 
-  provisioner "remote-exec" {
-    #Allow the commands to run after creating the instance
-    inline = [
-    "chmod 744 /home/ubuntu/docker-install.sh",
-    "/home/ubuntu/docker-install.sh",
-    ]
-  }
-
-  provisioner "remote-exec" {
-    #Allow the commands to run after creating the instance
-    inline = [
-    "chmod 744 /home/ubuntu/app-run.sh",
-    "/home/ubuntu/app-run.sh"
-    ]
+  provisioner "local-exec" {
+    working_dir = "../ansible"
+    environment = {
+      ANSIBLE_CONFIG = "${abspath(path.root)}/ansible"
+    }
+    command = "ansible-playbook -i ${self.public_ip}, -u ubuntu playbook.yml"
   }
 
   tags = {

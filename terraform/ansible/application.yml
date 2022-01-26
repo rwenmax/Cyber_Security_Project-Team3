@@ -1,0 +1,69 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Updating the apt
+      apt: update_cache=yes
+
+    - name: Installing aptitdue
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Install all required package
+      apt: name={{ item }} state=latest update_cache=yes force_apt_get=yes
+      loop: ['apt-transport-https' , 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+    
+    - name: Add a GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Updating the apt
+      apt: update_cache=yes
+
+    - name: Installing all required package
+      apt: name={{ item }} state=latest update_cache=yes force_apt_get=yes
+      loop: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+   
+    - name: Installing Python package
+      pip:
+        name: docker
+    
+    - name: Adding the current user to Docker group to allow docker running without sudo
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+    
+    - name: Copying the application.properties file over
+      copy: 
+        src: "{{ playbook_dir }}/../modules/application/files/application.properties"
+        dest: /home/ubuntu
+        owner: ubuntu
+        group: ubuntu
+        mode: 0744
+
+    - name: Run Application 
+      docker_container:
+        name: Starting the application
+        image: pruthvilalji/sakilarestapi:2.0
+        published_ports:
+          - "8080:8080"
+        volumes:
+          - /home/ubuntu/application.properties:/application.properties
+
+
+  # - name: Running the appplication
+  #   shell:  docker run -p 8080:8080 --mount type=bind,source=$(pwd)/application.properties,target=/application.properties -d pruthvilalji/sakilarestapi:2.0
+
+
+
+
+    
+
+
+
