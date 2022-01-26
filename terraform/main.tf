@@ -14,7 +14,6 @@ resource "aws_vpc" "java10x_cyberg3_vpc_tf" {
     }
 }
 
-
 #DNS Routing 
 resource "aws_route53_zone" "java10x_cyberg3_r53_zone_tf" {
   name = "cyber_group3"
@@ -26,7 +25,6 @@ resource "aws_route53_zone" "java10x_cyberg3_r53_zone_tf" {
     Name = "java10x_cyberg3_r53_zone"
   }
 }
-
 
 #Internet gateway
 resource "aws_internet_gateway" "java10x_cyberg3_igw_tf" {
@@ -49,10 +47,32 @@ resource "aws_route_table" "java10x_cyberg3_rt_tf" {
   }
 }
 
-
-#All the subnets 
+#Subnets Creations 
 module "subnets_module" {
   source = "./modules/subnets"
   var_vpc_id_tf = "${local.vpc_id}"
 }
+
+
+
+module "database_module" {
+  source = ""
+  
+}
+
+module "application_module" {
+  
+}
+
+module "proxy_module" {
+
+}
+
+
+module "bastion_module" {
+
+}
+
+
+#App Instance/Security Group
 
