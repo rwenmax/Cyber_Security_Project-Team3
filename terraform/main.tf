@@ -56,7 +56,7 @@ module "subnets_module" {
 
 
 module "database_module" {
-  source = ""
+  source = "./database"
   var_vpc_id_tf = "${local.vpc_id}"
   var_subnet_database_id_tf = "${module.subnets_module.output_subnet_database_id_tf}"
   var_ami_database_server_tf = "${var.var_ami_database_server_tf}"
@@ -65,7 +65,14 @@ module "database_module" {
 }
 
 module "application_module" {
-  source = ""
+  source = "./application"
+  var_depends_on_database = module.database_module.output_database_instance_tf
+  var_vpc_id_tf = "${local.vpc_id}"
+  var_subnet_app_id_tf = "${module.subnets_module.output_subnet_app_id}"
+  var_route_table_id_tf = aws_route_table.java10x_cyberg3_rt_tf.id
+  var_global_key_name_tf = "${var.var_global_key_name_tf}"
+  var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
+  var_client_ip_address_tf = "${var.var_client_ip_address_tf}"
 }
 
 
