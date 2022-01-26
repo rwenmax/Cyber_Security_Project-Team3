@@ -61,16 +61,16 @@ module "database_module" {
 }
 
 module "application_module" {
-  
+  source = ""
 }
 
 module "proxy_module" {
-
+ source = ""
 }
 
 
 module "bastion_module" {
-
+ source = ""
 }
 
 
