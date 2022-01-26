@@ -1,11 +1,14 @@
 package com.sparta.team3.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
 @Table(name = "token")
 public class Token {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "token_id", nullable = false)
@@ -14,12 +17,21 @@ public class Token {
     @Column(name = "token", nullable = false, length = 100)
     private String token;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "profile_id", nullable = false)
     private UserProfile profile;
 
     @Column(name = "ts_expiration")
     private Instant tsExpiration;
+
+    public Token() {
+
+    }
+    public Token(String sToken, UserProfile userProfile) {
+        this.token = sToken;
+        this.profile = userProfile;
+    }
 
     public Instant getTsExpiration() {
         return tsExpiration;
