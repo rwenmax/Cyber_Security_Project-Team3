@@ -31,11 +31,11 @@ public class TokenController {
     @PostMapping(value = "/token/add/{user_id}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
     public String createToken(@PathVariable int user_id) throws NoSuchAlgorithmException
     {
-        Optional<UserProfile> optionalProfile = UserProfileRepository.findByUserID(user_id);
+        Optional<UserProfile> optionalProfile = UserProfileRepository.findByid(user_id);
         if(optionalProfile.isEmpty())
             return null;
         UserProfile profile = optionalProfile.get();
-        Optional<Token> tokenQuery = tokenRepository.findByProfileUserName(profile.getProfileUsername());
+        Optional<Token> tokenQuery = tokenRepository.findByProfile(profile.getProfileUsername());
         if(tokenQuery.isPresent())
             return null;
 
