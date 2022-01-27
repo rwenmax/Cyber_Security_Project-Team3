@@ -40,7 +40,7 @@ application.properties
 # Local .terraform directories
 **/.terraform/*
 
-terraform/update-variables.tf
+update-variables.tf
 *.tfstate
 *.tfstate.*
 
