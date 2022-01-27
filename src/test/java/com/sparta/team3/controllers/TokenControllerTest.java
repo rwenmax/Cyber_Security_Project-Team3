@@ -15,7 +15,7 @@ import static com.sparta.team3.HttpRequester.*;
 
 public class TokenControllerTest {
 
-    private static final String ROOT_URL = "http://localhost:8081/cyberteam3/user";
+    private static final String ROOT_URL = "http://localhost:8080/cyberteam3/user";
 
     @ParameterizedTest
     @DisplayName("Get user by token")

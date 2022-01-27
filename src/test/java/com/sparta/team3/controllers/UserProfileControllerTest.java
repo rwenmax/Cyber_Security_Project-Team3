@@ -14,7 +14,7 @@ import static com.sparta.team3.HttpRequester.*;
 
 public class UserProfileControllerTest {
 
-    private static final String ROOT_URL = "http://localhost:8081/cyberteam3/user";
+    private static final String ROOT_URL = "http://localhost:8080/cyberteam3/user";
 
     @BeforeAll
     public static void getConnections() {
