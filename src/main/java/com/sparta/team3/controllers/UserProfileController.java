@@ -8,13 +8,16 @@ import com.sparta.team3.repositories.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
+@Transactional
 @RestController
 @RequestMapping(value = "/user")
 public class UserProfileController
 {
+
     @Autowired
     private UserProfileRepository userProfileRepository;
 
@@ -39,7 +42,7 @@ public class UserProfileController
         }
     }
 
-    @PostMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> deleteUser(@RequestBody UserDeleteContainer json)
     {
         Optional<UserProfile> profile = userProfileRepository.findByProfileUsername(json.getUserName());
@@ -56,8 +59,8 @@ public class UserProfileController
             }
             else
             {
-                userProfileRepository.deleteByProfileUsername(json.getUserName());
                 tokenRepository.delete(token.get());
+                userProfileRepository.deleteByProfileUsername(json.getUserName());
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         }
