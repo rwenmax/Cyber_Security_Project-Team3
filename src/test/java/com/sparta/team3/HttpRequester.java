@@ -31,6 +31,13 @@ public class HttpRequester {
                 .build();
         return getResponse(request);
     }
+    public static HttpResponse<String> deleteRequest(String url, String json) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .method("DELETE",HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        return getResponse(request);
+    }
     public static HttpResponse<String> putRequest(String url, String json) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .header("Content-Type", "application/json")
