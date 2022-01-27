@@ -16,6 +16,16 @@ public class Item {
     @Column(name = "item_type", nullable = false, length = 20)
     private String itemType;
 
+    public Item(String itemName, String itemType)
+    {
+        this.itemName = itemName;
+        this.itemType = itemType;
+    }
+
+    public Item() {
+
+    }
+
     public String getItemType() {
         return itemType;
     }

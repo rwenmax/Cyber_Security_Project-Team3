@@ -1,8 +1,10 @@
 package com.sparta.team3.controllers;
 
+import com.sparta.team3.entities.ProfileItem;
 import com.sparta.team3.entities.Token;
 import com.sparta.team3.entities.UserProfile;
-import com.sparta.team3.model.UserDeleteContainer;
+import com.sparta.team3.model.UserDeleteJsonObject;
+import com.sparta.team3.repositories.ProfileItemRepository;
 import com.sparta.team3.repositories.TokenRepository;
 import com.sparta.team3.repositories.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class UserProfileController
     @Autowired
     private TokenRepository tokenRepository;
 
+    @Autowired
+    private ProfileItemRepository profileItemRepository;
+  
     @GetMapping(value = "/users/{token}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
     public List<UserProfile> findTokenAll(@PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
@@ -76,8 +81,6 @@ public class UserProfileController
         }
     }
 
-
-  
     @DeleteMapping(value = "/user/delete")
     public ResponseEntity<String> deleteUser(@RequestBody UserDeleteContainer json)
     {
@@ -95,6 +98,14 @@ public class UserProfileController
             }
             else
             {
+                //delete the profile-item links first
+                List<ProfileItem> profileItems = profileItemRepository.findAllByProfile(profile.get());
+                profileItemRepository.deleteAll(profileItems);
+                //delete token
+                tokenRepository.delete(token.get());
+                //delete the user from the DB
+                userProfileRepository.delete(profile.get());
+
                 tokenRepository.delete(token.get());
                 userProfileRepository.deleteByProfileUsername(json.getUserName());
                 return new ResponseEntity<>(HttpStatus.OK);
