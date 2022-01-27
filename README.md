@@ -1,6 +1,6 @@
 <div id="top"></div>
 <div align="center">
-    <h1 align= "center">Music Store API</h1>
+    <h1 align= "center">CSPTeam3</h1>
 </div>
 <details>
   <summary>Table of Contents</summary>
