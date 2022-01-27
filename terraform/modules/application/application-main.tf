@@ -183,14 +183,14 @@ resource "aws_instance" "java10x_cyberg3_app_tf" {
   provisioner "remote-exec" {
     #Allow the commands to run after creating the instance
     inline = [
-      "ls"
+      "ls -la"
     ]
   }
 
   provisioner "local-exec" {
     working_dir = "../ansible"
     environment = {
-      ANSIBLE_CONFIG = "${abspath(path.root)}/ansible"
+      ANSIBLE_CONFIG = "${abspath(path.root)}/../ansible"
     }
     command = "ansible-playbook -i ${self.public_ip}, -u ubuntu application.yml"
   }

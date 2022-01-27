@@ -144,27 +144,20 @@ resource "aws_instance" "java10x_cyberg3_proxy_tf" {
     private_key = file("${var.var_private_key_loc_tf}")
   }
 
-  provisioner "file" {
-    source = "./modules/proxy/scripts/nginx-install.sh"
-    destination = "/home/ubuntu/nginx-install.sh"
-  }
 
-
-  provisioner "file" {
-    source = "./modules/proxy/scripts/cert_files"
-    destination = "/home/ubuntu/cert_files"
-  }
-
-  provisioner "file" {
-    source = "./modules/proxy/scripts/default"
-    destination = "/home/ubuntu/default"
-  }
   provisioner "remote-exec" {
     inline = [
-      "chmod 744 /home/ubuntu/nginx-install.sh",
-      "/home/ubuntu/nginx-install.sh",
+      "ls",
     ]
 }
+    provisioner "local-exec" {
+    working_dir = "../ansible"
+    environment = {
+      ANSIBLE_CONFIG = "${abspath(path.root)}/../ansible"
+    }
+    command = "ansible-playbook -i ${self.public_ip}, -u ubuntu proxy.yml"
+  }
+
   tags = {
     Name = "java10x_cyberg3_proxy"
   }
@@ -173,7 +166,7 @@ resource "aws_instance" "java10x_cyberg3_proxy_tf" {
 
 
 #Route for database
-resource "aws_route53_record" "java10x_cyberg3_r53_record_db_tf" {
+resource "aws_route53_record" "java10x_cyberg3_r53_record_proxy_tf" {
   zone_id = "${var.var_route53_zone_id_tf}"
   name = "proxy"
   type = "A"

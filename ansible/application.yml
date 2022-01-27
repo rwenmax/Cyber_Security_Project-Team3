@@ -50,7 +50,7 @@
 
     - name: Copying the application.properties file over
       copy:
-        src: "{{ playbook_dir }}/../modules/application/files/application.properties"
+        src: "{{ playbook_dir }}/../terraform/modules/application/files/application.properties"
         dest: /home/ubuntu
         owner: ubuntu
         group: ubuntu
@@ -58,12 +58,12 @@
 
     - name: Run Application
       docker_container:
-        name: Starting the application
-        image: pruthvilalji/sakilarestapi:2.0
+        name: sakilarestapi
+        image: "pruthvilalji/sakilarestapi:2.0"
         published_ports:
           - "8080:8080"
         volumes:
-          - /home/ubuntu/application.properties:/application.properties
+          - "/home/ubuntu/application.properties:/application.properties"
 
   # - name: Running the appplication
   #   shell:  docker run -p 8080:8080 --mount type=bind,source=$(pwd)/application.properties,target=/application.properties -d pruthvilalji/sakilarestapi:2.0
