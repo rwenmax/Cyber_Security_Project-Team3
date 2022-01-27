@@ -147,7 +147,7 @@ resource "aws_instance" "java10x_cyberg3_proxy_tf" {
 
   provisioner "remote-exec" {
     inline = [
-      "ls",
+      "ls -la",
     ]
 }
     provisioner "local-exec" {
