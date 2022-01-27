@@ -5,6 +5,7 @@ import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, String>
@@ -12,5 +13,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, String
     Optional<UserProfile> findByProfileUsername(String username);
 
     Optional<UserProfile> findById(int user_id);
-    Optional<UserProfile> deleteByProfileUsername(String username);
+    void deleteByProfileUsername(String username);
 }

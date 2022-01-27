@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "profile_item")
 public class ProfileItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -16,6 +17,16 @@ public class ProfileItem {
     @ManyToOne(optional = false)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
+
+    public ProfileItem(UserProfile profile, Item item)
+    {
+        this.profile = profile;
+        this.item = item;
+    }
+
+    public ProfileItem() {
+
+    }
 
     public Long getId() {
         return id;

@@ -1,11 +1,11 @@
 package com.sparta.team3.model;
 
-public class UserDeleteContainer
+public class UserDeleteJsonObject
 {
     String token;
     String userName;
 
-    public UserDeleteContainer(String token, String userName)
+    public UserDeleteJsonObject(String token, String userName)
     {
         this.token = token;
         this.userName = userName;
