@@ -82,7 +82,7 @@ public class UserProfileController
     }
 
     @DeleteMapping(value = "/user/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody UserDeleteContainer json)
+    public ResponseEntity<String> deleteUser(@RequestBody UserDeleteJsonObject json)
     {
         Optional<UserProfile> profile = userProfileRepository.findByProfileUsername(json.getUserName());
         if(profile.isEmpty())
@@ -105,9 +105,6 @@ public class UserProfileController
                 tokenRepository.delete(token.get());
                 //delete the user from the DB
                 userProfileRepository.delete(profile.get());
-
-                tokenRepository.delete(token.get());
-                userProfileRepository.deleteByProfileUsername(json.getUserName());
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         }

@@ -13,7 +13,7 @@ import java.net.http.HttpResponse;
 import static com.sparta.team3.HttpRequester.*;
 
 
-public class UserProfileControllerTest {
+public class TokenControllerTest {
 
     private static final String ROOT_URL = "http://localhost:8081/cyberteam3/user";
 
