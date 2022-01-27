@@ -21,7 +21,6 @@
         <li><a href="#profileitem">ProfileItem</a></li>
       </ul>
     </li>
-      <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
 	<li><a href="#credits-and-contact">Credits and Contact</a></li>
 	  <li><a href="#license">License</a></li>
   </ol>
