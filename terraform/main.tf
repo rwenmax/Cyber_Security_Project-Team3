@@ -4,7 +4,7 @@ provider "aws" {
 
 #Creating a VPC
 resource "aws_vpc" "java10x_cyberg3_vpc_tf" {
-    cidr_block = "10.113.0.0/16"
+    cidr_block = "10.3.0.0/16"
 
     enable_dns_support = true
     enable_dns_hostnames = true
@@ -78,8 +78,6 @@ module "application_module" {
   var_ami_app_server_tf = "${var.var_ami_app_server_tf}"
 }
 
-
-
 module "proxy_module" {
  source = "./modules/proxy"
  var_depends_on_application_tf = "${module.application_module.output_webserver_ids_tf}"
@@ -92,7 +90,6 @@ module "proxy_module" {
  var_private_key_loc_tf = "${var.var_private_key_loc_tf}"
  var_route53_zone_id_tf = aws_route53_zone.java10x_cyberg3_r53_zone_tf.id
 }
-
 
 module "bastion_module" {
  source = "./modules/bastion"

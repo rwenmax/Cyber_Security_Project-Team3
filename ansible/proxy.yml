@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Updating the apt
+      apt: update_cache=yes
+
+    - name: Installing aptitdue
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Nginx installation
+      apt: name=nginx state=latest
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: Copying the certificates files
+      copy:
+        src: "{{ playbook_dir }}/../terraform/modules/proxy/cert_files"
+        dest: /home/ubuntu
+        owner: ubuntu
+        group: ubuntu
+        mode: 0744
+
+    - name: Copying the defualt file over
+      copy:
+        src: "{{ playbook_dir }}/../terraform/modules/proxy/default"
+        dest: /etc/nginx/sites-available/default
+        owner: ubuntu
+        group: ubuntu
+        mode: 0744
+
+    - name: Restarting nginx
+      service:
+        name: nginx
+        state: restarted
