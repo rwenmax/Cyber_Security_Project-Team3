@@ -1,12 +1,10 @@
 package com.sparta.team3.controllers;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.test.context.jdbc.Sql;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.net.http.HttpResponse;
 
@@ -15,41 +13,37 @@ import static com.sparta.team3.HttpRequester.*;
 
 public class TokenControllerTest {
 
-    private static final String ROOT_URL = "http://localhost:8081/cyberteam3/user";
+    private static final String ROOT_URL = "http://localhost:8080/cyberteam3/token";
 
     @ParameterizedTest
-    @DisplayName("Get user by token")
+    @DisplayName("Add token by user ID")
+    @ValueSource(ints = {1})
+    public void getPostTokenByUserIDStatus(int userID) {
+        HttpResponse<String> response = postRequest(ROOT_URL + "/add/" + userID, "");
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+    @ParameterizedTest
+    @DisplayName("Get tokens by name")
     @CsvSource({"abcdefg"})
-    public void getGetUserByTokenStatus(String token) {
-        HttpResponse<String> getUserByTokenResponse = getRequest(ROOT_URL  + "s/" + token);
-        Assertions.assertEquals(200, getUserByTokenResponse.statusCode());
+    public void getGetTokensStatus(String token) {
+        HttpResponse<String> response = getRequest(ROOT_URL + "s/" + token, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
-    @DisplayName("Get user by token")
-    @CsvSource({"kamil, abcdefg"})
-    public void getGetUserByTokenStatus(String user, String token) {
-        HttpResponse<String> getUserByNameAndTokenResponse = getRequest(ROOT_URL  + "/" + user + "/" + token);
-        Assertions.assertEquals(200, getUserByNameAndTokenResponse.statusCode());
+    @DisplayName("Get token by id")
+    @CsvSource({"3, abcdefg"})
+    public void getDeleteTokenByIDStatus(String id, String tokenA) {
+        HttpResponse<String> response = deleteRequest(ROOT_URL + "/deletebyid/" + id + "/" + tokenA, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
-    @DisplayName("Adding User")
-    @CsvSource({"Test,Test"})
-    public void getPostUserStatus(String profileUsername) {
-        HttpResponse<String> postUserResponse = postRequest(ROOT_URL + "/add",
-                " { \"profileUsername\": \"" + profileUsername + "\" , \"profilePassword\": \"" + profileUsername +"\"} "
-        );
-        Assertions.assertEquals(200, postUserResponse.statusCode());
+    @DisplayName("Get token by token")
+    @CsvSource({"Apple, abcdefg"})
+    public void getDeleteTokenByTokenStatus(String token, String tokenA) {
+        HttpResponse<String> response = deleteRequest(ROOT_URL + "/deletebytoken/" + token + "/" + tokenA, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
-    @ParameterizedTest
-    @DisplayName("Deleting User")
-    @CsvSource({"abcdefg, kamil"})
-    public void getDeleteUserStatus(String token, String userName) {
-        HttpResponse<String> deleteUserResponse = deleteRequest(ROOT_URL  + "/delete",
-                " { \"token\": \"" + token + "\" , \"userName\": \"" + userName +"\"}"
-        );
-        Assertions.assertEquals(200, deleteUserResponse.statusCode());
-    }
-
 }
