@@ -35,7 +35,7 @@ public class TokenController {
         if(optionalProfile.isEmpty())
             return null;
         UserProfile profile = optionalProfile.get();
-        Optional<Token> tokenQuery = tokenRepository.findByProfile(profile.getProfileUsername());
+        Optional<Token> tokenQuery = tokenRepository.findByProfile(profile);
         if(tokenQuery.isPresent())
             return null;
 
