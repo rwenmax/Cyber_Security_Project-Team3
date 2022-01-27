@@ -3,6 +3,7 @@ package com.sparta.team3.repositories;
 import com.sparta.team3.entities.UserProfile;
 import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
