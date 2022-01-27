@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.net.http.HttpResponse;
 
@@ -15,11 +16,6 @@ import static com.sparta.team3.HttpRequester.*;
 public class UserProfileControllerTest {
 
     private static final String ROOT_URL = "http://localhost:8081/cyberteam3/user";
-
-    @BeforeAll
-    public static void getConnections() {
-        //putUserByTokenResponse = getRequest(PUT_USER_BY_TOKEN);
-    }
 
     @ParameterizedTest
     @DisplayName("Get user by token")
