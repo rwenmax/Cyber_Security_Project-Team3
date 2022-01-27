@@ -1,0 +1,15 @@
+upstream cyberg3_app {
+        server www.cyber_group3:8080;
+}
+
+server {
+        listen 443 ssl;
+        server_name _;
+        location / {
+                    proxy_set_header Host $host;
+                    proxy_pass http://cyberg3_app;
+        }
+
+        ssl_certificate /home/ubuntu/cert_files/cert.pem;
+        ssl_certificate_key /home/ubuntu/cert_files/key.pem;
+}
