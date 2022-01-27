@@ -12,6 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.MessageDigestSpi;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +40,6 @@ public class UserProfileController
         }
         return null;
     }
-
     @GetMapping(value = "/user/{name}/{token}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
     public UserProfile findUserByName(@PathVariable String name, @PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
@@ -48,7 +52,6 @@ public class UserProfileController
         }
         return null;
     }
-
     @PostMapping(value = "/user/add")
     public ResponseEntity<String> createNewUser(@RequestBody UserProfile credentials) {
 
@@ -56,9 +59,15 @@ public class UserProfileController
 
         if(profile.isEmpty())
         {
-            //TODO add hashing for password
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                byte[] bytesOfPass = credentials.getProfilePassword().getBytes(StandardCharsets.UTF_8);
+                byte[] thedigest = md.digest(bytesOfPass);
+                credentials.setProfilePassword(new String(thedigest, StandardCharsets.UTF_8));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             userProfileRepository.save(credentials);
-
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else
@@ -104,5 +113,25 @@ public class UserProfileController
             return new ResponseEntity<UserProfile>(newState, HttpStatus.OK);
         }
         return new ResponseEntity<UserProfile>((UserProfile) null, HttpStatus.UNAUTHORIZED);
+    }
+    @GetMapping(value = "/login/{name}/{pass}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
+    public UserProfile userLogin(@PathVariable String name, @PathVariable String pass) {
+        Optional<UserProfile> output = userProfileRepository.findByProfileUsername(name);
+        if (output.isEmpty()) {
+            return null;
+        }
+        String newPass = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] bytesOfPass = pass.getBytes(StandardCharsets.UTF_8);
+            byte[] thedigest = md.digest(bytesOfPass);
+            newPass = new String(thedigest, StandardCharsets.UTF_8);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        if (output.get().getProfilePassword().equals(newPass)){
+            return output.get();
+        }
+        return null;
     }
 }
