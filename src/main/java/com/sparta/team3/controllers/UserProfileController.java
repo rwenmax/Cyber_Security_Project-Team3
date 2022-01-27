@@ -7,14 +7,17 @@ import com.sparta.team3.repositories.TokenRepository;
 import com.sparta.team3.repositories.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/cyberteam3")
 public class UserProfileController
 {
 
@@ -24,7 +27,29 @@ public class UserProfileController
     @Autowired
     private TokenRepository tokenRepository;
 
-    @PostMapping(value = "/new")
+    @GetMapping(value = "/users/{token}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
+    public List<UserProfile> findTokenAll(@PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            return userProfileRepository.findAll();
+        }
+        return null;
+    }
+
+    @GetMapping(value = "/user/{name}/{token}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
+    public UserProfile findUserByName(@PathVariable String name, @PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            Optional<UserProfile> output = userProfileRepository.findByProfileUsername(name);
+            if (output.isEmpty()) {
+                return null;
+            }
+            return output.get();
+        }
+        return null;
+    }
+
+    @PostMapping(value = "/user/add")
     public ResponseEntity<String> createNewUser(@RequestBody UserProfile credentials) {
 
         Optional<UserProfile> profile = userProfileRepository.findByProfileUsername(credentials.getProfileUsername());
@@ -42,7 +67,9 @@ public class UserProfileController
         }
     }
 
-    @DeleteMapping(value = "/delete")
+
+  
+    @DeleteMapping(value = "/user/delete")
     public ResponseEntity<String> deleteUser(@RequestBody UserDeleteContainer json)
     {
         Optional<UserProfile> profile = userProfileRepository.findByProfileUsername(json.getUserName());
@@ -64,5 +91,18 @@ public class UserProfileController
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         }
+    }
+    @PutMapping(value = "/user/update/{token}" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<UserProfile> updateUser(@RequestBody UserProfile newState, @PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            Optional<UserProfile> oldState = userProfileRepository.findById(newState.getId());
+            if (oldState.isEmpty()) {
+                return new ResponseEntity<UserProfile>((UserProfile) null, HttpStatus.NOT_FOUND);
+            }
+            userProfileRepository.save(newState);
+            return new ResponseEntity<UserProfile>(newState, HttpStatus.OK);
+        }
+        return new ResponseEntity<UserProfile>((UserProfile) null, HttpStatus.UNAUTHORIZED);
     }
 }
