@@ -43,6 +43,7 @@
 - [x] Use of JDBC
 - [x] Entities, Repositories and Controllers
 - [x] Junit Testing
+- [x] Password Hashing via SHA-256
 
 ## Functions
 
@@ -122,50 +123,93 @@ Response: list of all profiles
 [
     {
         "id": 1,
-        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg",
-        "user_id": "1",
+        "profileUsername": "kamilR",
+        "profilePassword": "123"
     },
     {
         "id": 2,
-        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg",
-        "user_id": "2",
+        "profileUsername": "mihai",
+        "profilePassword": "321"
     },
-]
+...
 ```
 
-#### *GET token by Token*
+#### *GET profile by username*
 
-URL endpoint: /cyberteam3/token/findbytoken/{token}
+URL endpoint: /cyberteam3/user/{username}
 
-Response: token object for given token
+Response: profile object with matching name
 
-Example for token with token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg"
+Example for profile with name: "kamilR"
 
 ```json
 {
     "id": 1,
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg",
-    "user_id": "1",
+    "profileUsername": "kamilR",
+    "profilePassword": "123"
 }
 ```
 
-#### Create token
+#### Create profile
 
-URL endpoint: /cyberteam3/token/add/{user_id}
+URL endpoint: /cyberteam3/user/add
 
-Response: Generates a new token for the specified user
+Example Json input:
+
+```json
+{
+    "profileUsername": "steve",
+    "profilePassword": "password"
+}
+```
+
+Response: Adds a profile of name "steve" and a hashed password to the database
 
 
-#### DELETE token by token
+#### DELETE profile
 
-URL endpoint: /cyberteam3/token/deletebytoken/{token}
+URL endpoint: /cyberteam3/user/delete
 
-Response: deletes token row from the tokens table based on the given token
+Example Json input:
 
-#### DELETE token by token id
+```json
+{
+    "token": "fasdf",
+    "profileUsername": "asdfa"
+}
+```
 
-URL endpoint: /cyberteam3/token/deletebyid/{token}
+Response: deletes profile with matching username
 
-Response: deletes token row from the tokens table based on the given token id
+#### UPDATE profile by profile_id
+
+URL endpoint: /cyberteam3/user/update
+
+Example Json input:
+
+```json
+{
+    "id": 8
+    "profileUsername": "steve",
+    "profilePassword": "password"
+}
+```
+Response: updates a profile based on profile_id
+
+### GET profile with matching password and username
+
+URL endpoint: /cyberteam3/login/{username}/{password}
+
+Response: profile object with matching name and password, useful for checking if the username and password are correct
+
+Example for profile with name and password: "kamilR" and "123"
+
+```json
+{
+    "id": 1,
+    "profileUsername": "kamilR",
+    "profilePassword": "123"
+}
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
