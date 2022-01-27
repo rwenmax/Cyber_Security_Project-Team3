@@ -15,10 +15,10 @@
         <li><a href="#token">Token</a></li>
       </ul>
       <ul>
-        <li><a href="#profile">Track</a></li>
+        <li><a href="#profile">Profile</a></li>
       </ul>
 	    <ul>
-        <li><a href="#profileitem">Customer</a></li>
+        <li><a href="#profileitem">ProfileItem</a></li>
       </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
