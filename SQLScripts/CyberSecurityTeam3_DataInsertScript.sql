@@ -8,7 +8,10 @@ VALUES
     ("ishmael", 43321);
     
 INSERT INTO token (token, profile_id)
-VALUES ("abcdefg", 1);
+VALUES 
+	("abcdefg", 1),
+	("qwerty", 2),
+    ("nginx", 3);
 
 INSERT INTO item (item_name, item_type)
 VALUES
