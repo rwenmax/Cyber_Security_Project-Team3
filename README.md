@@ -328,7 +328,61 @@ The application subnet consists of 3 instances of the application and the Proxy 
 
 This infrastructure is build completely using Terraform and Ansible is used for configuring the Proxy and Application Instance. 
 
+Application, Proxy and Bastion Instances are all using the Linux Instances as its lightweight and faster configuration. 
 
+Docker is installing on Application Instances using Ansible and Nginx is installing in the Proxy Instance using Ansible for Load Balancing and Reverse Proxy. 
+
+Database Instance is a pre-built Instance with the database already configured. Bastion is a just a linux instance with nothing installed. 
+
+
+
+###### Terraform
+
+Most of the variables can be configured in the terraform to build the infrastructure. 
+
+These are in the the `/terraform` folder
+
+`main-variables.tf` 
+
+```terraform
+#Name of private key
+variable "var_global_key_name_tf" {
+    default = "cyber-10x-group3"
+}
+
+#Location of the private key
+variable "var_private_key_loc_tf" {
+  default = "/home/vagrant/.ssh/cyber-10x-group3.pem"
+}
+```
+
+Here you would chose the name of your Private AWS key and the location of that Key.
+
+
+
+`update-variables.tf`
+
+```terraform
+variable "var_client_ip_address_tf" {
+  default = "0.0.0.0/0"
+}
+```
+
+Change the default value to your IP address for Zero Trust Policy.
+
+
+
+###### Ansible
+
+![img](https://gyazo.com/e5e12bae84bd3b5c0ab64d014adaca88.png)
+
+Small Snippet of Ansible's application.yml file.
+
+This Update the packages in the Linux and installs Docker, Run's the Docker Image.
+
+
+
+Similar to application.yml, proxy.yml does the same stuff expect rather then docker installation, Nginx is installed and configured.
 
 
 
