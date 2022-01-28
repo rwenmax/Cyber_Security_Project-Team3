@@ -52,6 +52,14 @@ resource "aws_network_acl" "java10x_cyberg3_nacl-proxy" {
       from_port = 80
       to_port = 80
     }
+    egress {
+      protocol = "tcp"
+      rule_no = 400
+      action = "allow"
+      cidr_block = "10.3.1.0/24"
+      from_port = 22
+      to_port = 22
+    }
 
     egress {
       protocol = "tcp"
@@ -114,6 +122,14 @@ resource "aws_security_group" "java10x_cyberg3_sg_proxy_tf" {
     to_port = 80
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+ egress {
+    protocol = "tcp"
+    from_port = 22
+    to_port = 22
+    cidr_blocks = ["10.3.1.0/24"]
+  }
+
 
   egress {
     protocol = "tcp"

@@ -216,6 +216,42 @@ Example for profile with name and password: "kamilR" and "123"
 ### **ProfileItem**
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### AWS Infrastructure 
+
+The Infrastructure has been created on the Zero-Trust Policy, where database and App cannot be directly access by anyone outside the VPC. 
+
+The application subnet consists of 3 instances of the application and the Proxy instance is used for Load Balancing. 
+
+![AWS-Infrastructure](https://gyazo.com/a62170c741761b85b8685c4004fb1c3c.png)
+
+This infrastructure is build completely using Terraform and Ansible is used for configuring the Proxy and Application Instance. 
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
