@@ -16,10 +16,10 @@ public class ProfileItemControllerTest {
 
     @ParameterizedTest
     @DisplayName("Add item")
-    @CsvSource({"abcdefg, tree, package"})
-    public void getAddItemStatus(String token,String item, String type) {
+    @CsvSource({"abcdefg, tree"})
+    public void getAddItemStatus(String token,String item) {
         HttpResponse<String> response = postRequest(ROOT_URL + "/add",
-                " { \"token\": \"" + token + "\", \"item\": \"" + item + "\", \"type\": \"" + type + "\"}"
+                " { \"token\": \"" + token + "\", \"item\": \"" + item + "\"}"
         );
         Assertions.assertEquals(200, response.statusCode());
     }
