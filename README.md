@@ -223,7 +223,7 @@ Example for profile with name and password: "kamilR" and "123"
 
 ## Credits and Contact
 
-[Kamil](https://github.com/rwenmax) • [Konrad](https://github.com/KonradDlugosz) • [Talal](https://github.com/talal1998) • [Alex](https://github.com/alexsusanu) • [Anthony](https://github.com/MagerXser) • [Ed](https://github.com/EdBencito) • [Nikolas](https://github.com/Moodhunter34) • [Ishmael](https://github.com/ishariffSG) • [Mihai](https://github.com/Ascerte)  
+[Kamil](https://github.com/rwenmax) • [Ishmael](https://github.com/ishariffSG) • [Mihai](https://github.com/Ascerte) • [Pruthvi](https://github.com/pruthvi-lalji) 
 
 ---
 
