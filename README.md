@@ -89,20 +89,19 @@ Example for token with token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9v
 }
 ```
 
-#### Create token
+#### *Create token*
 
 URL endpoint: /cyberteam3/token/add/{user_id}
 
 Response: Generates a new token for the specified user
 
-
-#### DELETE token by token
+#### *DELETE token by token*
 
 URL endpoint: /cyberteam3/token/deletebytoken/{token}
 
 Response: deletes token row from the tokens table based on the given token
 
-#### DELETE token by token id
+#### *DELETE token by token id*
 
 URL endpoint: /cyberteam3/token/deletebyid/{token}
 
@@ -149,7 +148,7 @@ Example for profile with name: "kamilR"
 }
 ```
 
-#### Create profile
+#### *Create profile*
 
 URL endpoint: /cyberteam3/user/add
 
@@ -165,7 +164,7 @@ Example Json input:
 Response: Adds a profile of name "steve" and a hashed password to the database
 
 
-#### DELETE profile
+#### *DELETE profile*
 
 URL endpoint: /cyberteam3/user/delete
 
@@ -174,13 +173,13 @@ Example Json input:
 ```json
 {
     "token": "fasdf",
-    "profileUsername": "asdfa"
+    "userName": "asdfa"
 }
 ```
 
 Response: deletes profile with matching username
 
-#### UPDATE profile by profile_id
+#### *UPDATE profile by profile_id*
 
 URL endpoint: /cyberteam3/user/update
 
@@ -195,7 +194,7 @@ Example Json input:
 ```
 Response: updates a profile based on profile_id
 
-### GET profile with matching password and username
+### *GET profile with matching password and username*
 
 URL endpoint: /cyberteam3/login/{username}/{password}
 
@@ -215,6 +214,94 @@ Example for profile with name and password: "kamilR" and "123"
 
 ### **ProfileItem**
 
+#### *GET all items bound to profile*
+
+URL endpoint: cyberteam3/item/get
+
+Example Json input:
+
+```json
+{
+    "token": "abcdefg"
+}
+```
+
+Response: list of all items from profile
+
+```json
+[
+    {
+        "id": 1,
+        "itemName": "tree",
+        "itemType": "package"
+    },
+    {
+        "id": 2,
+        "itemName": "docker",
+        "itemType": "package"
+    },
+...
+```
+
+#### *ADD item to profile*
+
+URL endpoint: /cyberteam3/item/add
+
+Example Json input:
+
+```json
+{
+    "token": "abcdefg",
+    "item": "youtube"
+}
+```
+
+Response: adds existing item to a profile
+
+#### *DELETE all items from profile*
+
+URL endpoint: /cyberteam3/items/delete
+
+Example Json input:
+
+```json
+{
+    "token": "abcdefg",
+}
+```
+
+Response: Deletes all items bound to a profile with specified token
+
+
+#### *DELETE item from profile*
+
+URL endpoint: /cyberteam3/item/delete
+
+Example Json input:
+
+```json
+{
+    "token": "abcdefg",
+    "name": "docker"
+}
+```
+
+Response: deletes specified item from given profile
+
+#### *UPDATE item by profile_id*
+
+URL endpoint: /cyberteam3/item/update
+
+Example Json input:
+
+```json
+{
+    "token": 8
+    "target": "docker",
+    "value": "nginx"
+}
+```
+Response: updates the item link in the profile
 
 
 
