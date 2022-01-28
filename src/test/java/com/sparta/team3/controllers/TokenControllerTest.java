@@ -17,7 +17,7 @@ public class TokenControllerTest {
 
     @ParameterizedTest
     @DisplayName("Add token by user ID")
-    @ValueSource(ints = {1})
+    @ValueSource(ints = {3})
     public void getPostTokenByUserIDStatus(int userID) {
         HttpResponse<String> response = postRequest(ROOT_URL + "/add/" + userID, "");
         Assertions.assertEquals(200, response.statusCode());
@@ -32,16 +32,16 @@ public class TokenControllerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Get token by id")
-    @CsvSource({"3, abcdefg"})
+    @DisplayName("Delete token by id")
+    @CsvSource({"2, abcdefg"})
     public void getDeleteTokenByIDStatus(String id, String tokenA) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "/deletebyid/" + id + "/" + tokenA, "");
         Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
-    @DisplayName("Get token by token")
-    @CsvSource({"Apple, abcdefg"})
+    @DisplayName("Delete token by token")
+    @CsvSource({"nginx, abcdefg"})
     public void getDeleteTokenByTokenStatus(String token, String tokenA) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "/deletebytoken/" + token + "/" + tokenA, "");
         Assertions.assertEquals(200, response.statusCode());

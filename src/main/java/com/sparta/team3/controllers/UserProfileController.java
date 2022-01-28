@@ -102,7 +102,7 @@ public class UserProfileController
                 List<ProfileItem> profileItems = profileItemRepository.findAllByProfile(profile.get());
                 profileItemRepository.deleteAll(profileItems);
                 //delete token
-                tokenRepository.delete(token.get());
+                //tokenRepository.delete(token.get());
                 //delete the user from the DB
                 userProfileRepository.delete(profile.get());
                 return new ResponseEntity<>(HttpStatus.OK);
