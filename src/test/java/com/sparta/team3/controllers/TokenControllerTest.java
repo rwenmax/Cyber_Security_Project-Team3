@@ -19,31 +19,31 @@ public class TokenControllerTest {
     @DisplayName("Add token by user ID")
     @ValueSource(ints = {1})
     public void getPostTokenByUserIDStatus(int userID) {
-        HttpResponse<String> getTokenResponse = postRequest(ROOT_URL + "/add/" + userID, "");
-        Assertions.assertEquals(200, getTokenResponse.statusCode());
+        HttpResponse<String> response = postRequest(ROOT_URL + "/add/" + userID, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
     @DisplayName("Get tokens by name")
     @CsvSource({"abcdefg"})
     public void getGetTokensStatus(String token) {
-        HttpResponse<String> getTokenResponse = getRequest(ROOT_URL + "s/" + token);
-        Assertions.assertEquals(200, getTokenResponse.statusCode());
+        HttpResponse<String> response = getRequest(ROOT_URL + "s/" + token, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
     @DisplayName("Get token by id")
     @CsvSource({"3, abcdefg"})
     public void getDeleteTokenByIDStatus(String id, String tokenA) {
-        HttpResponse<String> getTokenResponse = deleteRequest(ROOT_URL + "/deletebyid/" + id + "/" + tokenA, "");
-        Assertions.assertEquals(200, getTokenResponse.statusCode());
+        HttpResponse<String> response = deleteRequest(ROOT_URL + "/deletebyid/" + id + "/" + tokenA, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
     @DisplayName("Get token by token")
     @CsvSource({"Apple, abcdefg"})
     public void getDeleteTokenByTokenStatus(String token, String tokenA) {
-        HttpResponse<String> getTokenResponse = deleteRequest(ROOT_URL + "/deletebytoken/" + token + "/" + tokenA, "");
-        Assertions.assertEquals(200, getTokenResponse.statusCode());
+        HttpResponse<String> response = deleteRequest(ROOT_URL + "/deletebytoken/" + token + "/" + tokenA, "");
+        Assertions.assertEquals(200, response.statusCode());
     }
 }

@@ -216,38 +216,6 @@ Example for profile with name and password: "kamilR" and "123"
 ### **ProfileItem**
 
 
-
-
-
-
-
-
-
-
-
-### **AWS Infrastructure **
-
-The application is built to run on 2 tier infrastructure.
-
-Using MySQL for the back-end to store the user's id, name, and hashed password along with the items (packages/app/modules). Java Spring boot for the application layer. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
@@ -255,7 +223,7 @@ Using MySQL for the back-end to store the user's id, name, and hashed password a
 
 ## Credits and Contact
 
-[Kamil](https://github.com/rwenmax) • [Pruthvi](https://github.com/pruthvi-lalji) • [Ishmael](https://github.com/ishariffSG) • [Mihai](https://github.com/Ascerte)  
+[Kamil](https://github.com/rwenmax) • [Ishmael](https://github.com/ishariffSG) • [Mihai](https://github.com/Ascerte) • [Pruthvi](https://github.com/pruthvi-lalji) 
 
 ---
 

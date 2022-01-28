@@ -18,9 +18,10 @@ public class HttpRequester {
         }
         return response;
     }
-    public static HttpResponse<String> getRequest(String url) {
+    public static HttpResponse<String> getRequest(String url, String json) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .header("Content-Type", "application/json")
+                .method("GET",HttpRequest.BodyPublishers.ofString(json))
                 .build();
         return getResponse(request);
     }

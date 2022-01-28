@@ -39,7 +39,7 @@ CREATE TABLE token (
     ts_expiration TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1 WEEK)
 );
 
-DROP event if exists deleteTokens;
+DROP event if exists deleteToken;
 
 CREATE event deleteToken
     ON schedule EVERY 12 HOUR

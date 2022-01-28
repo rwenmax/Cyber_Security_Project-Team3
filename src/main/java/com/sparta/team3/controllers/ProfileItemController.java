@@ -25,7 +25,7 @@ import java.util.Optional;
 
 //the controller takes the token as input and then performs the respective action only to items linked to that token
 @RestController
-@RequestMapping(value = "/item")
+@RequestMapping(value = "/cyberteam3")
 public class ProfileItemController
 {
     @Autowired
@@ -43,7 +43,7 @@ public class ProfileItemController
     @Autowired
     ObjectMapper mapper;
 
-    @PostMapping(value="/add")
+    @PostMapping(value="/item/add")
     public ResponseEntity<String> addPackage(@RequestBody ItemJsonObject json)
     {
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
@@ -75,7 +75,7 @@ public class ProfileItemController
         }
     }
 
-    @PostMapping(value= "/update")
+    @PutMapping(value= "/item/update")
     public ResponseEntity<String> updatePackage(@RequestBody ItemUpdateJsonObject json)
     {
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
@@ -127,7 +127,11 @@ public class ProfileItemController
         }
     }
 
-    @GetMapping(value="/get", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(value = "show")
+    public ItemUpdateJsonObject test(){
+        return new ItemUpdateJsonObject("23", "23", "23");
+    }
+    @GetMapping(value="/item/get", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Object> getItem(@RequestBody ItemGetJsonObject json){
 
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
@@ -155,7 +159,7 @@ public class ProfileItemController
         }
     }
 
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/item/delete")
     public ResponseEntity<String> deleteItem(@RequestBody ItemDeleteJsonObject json)
     {
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
@@ -195,7 +199,7 @@ public class ProfileItemController
         }
     }
 
-    @DeleteMapping(value = "/deleteAll")
+    @DeleteMapping(value = "items/delete")
     public ResponseEntity<String> deleteAll(@RequestBody ItemJsonObject json)
     {
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
