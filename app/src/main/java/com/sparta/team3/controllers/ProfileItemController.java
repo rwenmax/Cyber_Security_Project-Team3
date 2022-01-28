@@ -129,7 +129,6 @@ public class ProfileItemController
 
     @GetMapping(value="/item/get", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Object> getItem(@RequestBody ItemGetJsonObject json){
-
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
 
         if(token.isEmpty())

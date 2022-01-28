@@ -58,12 +58,12 @@
 
     - name: Run Application
       docker_container:
-        name: sakilarestapi
-        image: "pruthvilalji/sakilarestapi:2.0"
+        name: CyberTeamThree
+        image: "pruthvilalji/cyberteam3:1.0"
         published_ports:
           - "8080:8080"
         volumes:
           - "/home/ubuntu/application.properties:/application.properties"
 
   # - name: Running the appplication
-  #   shell:  docker run -p 8080:8080 --mount type=bind,source=$(pwd)/application.properties,target=/application.properties -d pruthvilalji/sakilarestapi:2.0
+  #   shell:  docker run -p 8080:8080 --mount type=bind,source=$(pwd)/application.properties,target=/application.properties -d pruthvilalji/cyberteam3:1.0
