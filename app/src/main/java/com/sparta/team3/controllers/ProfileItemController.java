@@ -14,6 +14,7 @@ import com.sparta.team3.repositories.ProfileItemRepository;
 import com.sparta.team3.repositories.TokenRepository;
 import com.sparta.team3.repositories.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,8 @@ public class ProfileItemController
     @PostMapping(value="/item/add")
     public ResponseEntity<String> addPackage(@RequestBody ItemJsonObject json)
     {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-type", "application/json");
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
         if(token.isEmpty())
         {
@@ -78,6 +81,8 @@ public class ProfileItemController
     @PutMapping(value= "/item/update")
     public ResponseEntity<String> updatePackage(@RequestBody ItemUpdateJsonObject json)
     {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-type", "application/json");
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
 
         if(token.isEmpty())
@@ -129,6 +134,9 @@ public class ProfileItemController
 
     @GetMapping(value="/item/get", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Object> getItem(@RequestBody ItemGetJsonObject json){
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-type", "application/json");
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
 
         if(token.isEmpty())
@@ -157,6 +165,8 @@ public class ProfileItemController
     @DeleteMapping(value = "/item/delete")
     public ResponseEntity<String> deleteItem(@RequestBody ItemDeleteJsonObject json)
     {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-type", "application/json");
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
 
         if(token.isEmpty())
@@ -197,6 +207,8 @@ public class ProfileItemController
     @DeleteMapping(value = "items/delete")
     public ResponseEntity<String> deleteAll(@RequestBody ItemJsonObject json)
     {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-type", "application/json");
         Optional<Token> token = tokenRepository.findByToken(json.getToken());
         if(token.isEmpty())
         {
