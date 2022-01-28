@@ -1,5 +1,6 @@
 package com.sparta.team3.controllers;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,8 +45,8 @@ public class ProfileItemControllerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Delete item")
-    @CsvSource({"abcdefg, tree, package"})
+    @DisplayName("Delete item/s")
+    @CsvSource({"token, tree"})
     public void getDeleteItemsStatus(String token, String name) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "/delete",
                 " { \"token\": \"" + token + "\" , \"name\": \"" + name +"\"}"
@@ -54,7 +55,7 @@ public class ProfileItemControllerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Delete all item")
+    @DisplayName("Delete all items")
     @CsvSource({"abcdefg"})
     public void getDeleteAllItemsStatus(String token) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "s/delete",

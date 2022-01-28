@@ -48,7 +48,7 @@ public class UserProfileControllerTest {
     }
     @ParameterizedTest
     @DisplayName("Deleting User")
-    @CsvSource({"abcdefg, kamil"})
+    @CsvSource({"abcdefg, ishmael"})
     public void getDeleteUserStatus(String token, String userName) {
         HttpResponse<String> response = deleteRequest(ROOT_URL  + "/delete",
                 " { \"token\": \"" + token + "\" , \"userName\": \"" + userName +"\"}"
