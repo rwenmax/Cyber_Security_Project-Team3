@@ -12,7 +12,7 @@ resource "aws_network_acl" "java10x_cyberg3_nacl-app" {
     protocol = "tcp"
     rule_no = 100
     action = "allow"
-    cidr_block = "${var.var_client_ip_address_tf}"
+    cidr_block = "10.3.4.0/24"
     from_port = 22
     to_port = 22
   }
@@ -121,7 +121,7 @@ resource "aws_security_group" "java10x_cyberg3_sg_app_tf" {
     protocol = "tcp"
     from_port = 22
     to_port = 22
-    cidr_blocks = ["${var.var_client_ip_address_tf}"]
+    cidr_blocks = ["10.3.4.0/24"]
   }
   ingress {
     protocol = "tcp"
