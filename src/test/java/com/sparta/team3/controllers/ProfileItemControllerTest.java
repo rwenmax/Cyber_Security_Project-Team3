@@ -36,10 +36,10 @@ public class ProfileItemControllerTest {
 
     @ParameterizedTest
     @DisplayName("Get all items")
-    @CsvSource({"abcdefg, tree, package"})
-    public void getAllItemsStatus(String token,String item, String type) {
+    @CsvSource({"abcdefg"})
+    public void getAllItemsStatus(String token) {
         HttpResponse<String> response = getRequest(ROOT_URL + "/get",
-                " { \"token\": \"" + token + "\", \"item\": \"" + item + "\", \"type\": \"" + type + "\"}"
+                " { \"token\": \"" + token + "\"}"
         );
         Assertions.assertEquals(200, response.statusCode());
     }
