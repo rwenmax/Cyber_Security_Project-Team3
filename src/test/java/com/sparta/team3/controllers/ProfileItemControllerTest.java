@@ -1,5 +1,6 @@
 package com.sparta.team3.controllers;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,10 +16,10 @@ public class ProfileItemControllerTest {
 
     @ParameterizedTest
     @DisplayName("Add item")
-    @CsvSource({"abcdefg, tree, package"})
-    public void getAddItemStatus(String token,String item, String type) {
+    @CsvSource({"abcdefg, tree"})
+    public void getAddItemStatus(String token,String item) {
         HttpResponse<String> response = postRequest(ROOT_URL + "/add",
-                " { \"token\": \"" + token + "\", \"item\": \"" + item + "\", \"type\": \"" + type + "\"}"
+                " { \"token\": \"" + token + "\", \"item\": \"" + item + "\"}"
         );
         Assertions.assertEquals(200, response.statusCode());
     }
@@ -35,17 +36,17 @@ public class ProfileItemControllerTest {
 
     @ParameterizedTest
     @DisplayName("Get all items")
-    @CsvSource({"abcdefg, tree, package"})
-    public void getAllItemsStatus(String token,String item, String type) {
+    @CsvSource({"abcdefg"})
+    public void getAllItemsStatus(String token) {
         HttpResponse<String> response = getRequest(ROOT_URL + "/get",
-                " { \"token\": \"" + token + "\", \"item\": \"" + item + "\", \"type\": \"" + type + "\"}"
+                " { \"token\": \"" + token + "\"}"
         );
         Assertions.assertEquals(200, response.statusCode());
     }
 
     @ParameterizedTest
-    @DisplayName("Delete item")
-    @CsvSource({"abcdefg, tree, package"})
+    @DisplayName("Delete item/s")
+    @CsvSource({"token, tree"})
     public void getDeleteItemsStatus(String token, String name) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "/delete",
                 " { \"token\": \"" + token + "\" , \"name\": \"" + name +"\"}"
@@ -54,7 +55,7 @@ public class ProfileItemControllerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Delete all item")
+    @DisplayName("Delete all items")
     @CsvSource({"abcdefg"})
     public void getDeleteAllItemsStatus(String token) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "s/delete",

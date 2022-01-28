@@ -5,13 +5,15 @@ VALUES
 	("kamil", 123),
     ("mihai", 321),
     ("pruthvi", 1234),
-    ("ishmael", 43321);
+    ("ishmael", 43321),
+    ("osama", "password");
     
 INSERT INTO token (token, profile_id)
 VALUES 
 	("abcdefg", 1),
 	("qwerty", 2),
-    ("nginx", 3);
+    ("nginx", 3),
+    ("token", 5);
 
 INSERT INTO item (item_name, item_type)
 VALUES
@@ -32,4 +34,6 @@ VALUES
     (2,6),
     (3,7),
     (4,4),
-    (4,1);
+    (4,1),
+    (5,1),
+    (5,4);
