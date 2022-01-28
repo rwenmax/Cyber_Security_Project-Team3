@@ -1,0 +1,10 @@
+variable "var_depends_on_database" {}
+variable "var_vpc_id_tf" {}
+variable "var_subnet_app_id_tf" {}
+variable "var_route_table_id_tf" {}
+variable "var_global_key_name_tf" {}
+variable "var_route53_zone_id_tf" {}
+variable "var_client_ip_address_tf" {}
+variable "var_number_of_instances_tf" {}
+variable "var_private_key_loc_tf" {}
+variable "var_ami_app_server_tf" {}
