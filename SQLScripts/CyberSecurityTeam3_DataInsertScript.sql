@@ -20,7 +20,7 @@ VALUES
 	("tree", "package"),
     ("docker", "package"),
     ("docker.io","component"),
-    ("youttube","app"),
+    ("youtube","app"),
     ("gitbash","app"),
     ("git","component"),
     ("nginx","package");

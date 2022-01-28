@@ -127,10 +127,6 @@ public class ProfileItemController
         }
     }
 
-    @GetMapping(value = "show")
-    public ItemUpdateJsonObject test(){
-        return new ItemUpdateJsonObject("23", "23", "23");
-    }
     @GetMapping(value="/item/get", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Object> getItem(@RequestBody ItemGetJsonObject json){
 
