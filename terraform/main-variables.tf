@@ -21,7 +21,7 @@ locals {
 
 ####Change thissssss###########
 variable "var_ami_database_server_tf"{
-  default = "ami-03fa06b015e630a7f"
+  default = "ami-08f20a38879bdc378"
 }
 
 
