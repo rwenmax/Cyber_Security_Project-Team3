@@ -45,7 +45,7 @@ public class ProfileItemControllerTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Delete item/s")
+    @DisplayName("Delete item")
     @CsvSource({"token, tree"})
     public void getDeleteItemsStatus(String token, String name) {
         HttpResponse<String> response = deleteRequest(ROOT_URL + "/delete",
